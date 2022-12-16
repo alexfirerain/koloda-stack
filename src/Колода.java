@@ -1,7 +1,10 @@
 /**
  * This pretty implementation of stack for everyday usage is designed
  * for people's convenience, peace on the Earth and the Russian World's propagation.
- * It defines methods for pushing, popping, reversing and printing the stuff.
+ * It defines methods for pushing, popping, reversing and printing the stuff
+ * which can be of any one object (i.e. non-primitive) Java type.
+ * The capacity of the structure is theoretically unlimited
+ * (solely having memory enough to allocate all these objects).
  * @param <T>   the type of data that the stack is meant to store and operate with.
  */
 public class Колода<T> {
@@ -13,7 +16,7 @@ public class Колода<T> {
 
     /**
      * The node modelling the items being stored.
-     * @param <T> the type of srored data.
+     * @param <T> the type of stored data.
      */
     protected class Элемент<T> {
 
@@ -29,9 +32,10 @@ public class Колода<T> {
         Элемент<T> следующий;
 
         /**
-         * A new item containing the value and lying over the another.
+         * A new item containing the value and laying over the another
+         * (or over nothing if at the bottom of the pack).
          * @param значение  a value this item holds.
-         * @param следующий another item this item lies over.
+         * @param следующий another item this item lies over ({@code null} if at the bottom).
          */
         public Элемент(T значение, Элемент<T> следующий) {
             this.значение = значение;

@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class Main {
-
     static Колода<Integer> стог = new Колода<>();
     static Scanner keyboard = new Scanner(System.in);
     static String WELCOME = """
@@ -22,12 +21,11 @@ public class Main {
                        "показать"    = отразить текущее состояние колоды
                        "опустошить"  = обнулить содержимое колоды
                        "хватит"      = завершение интерактивного режима
-                    
                 """;
     public static void main(String[] args) {
         while (true) {
             System.out.println(WELCOME);
-            String input = keyboard.next();
+            String input = keyboard.nextLine();
             if ("0".equals(input)) demo();
             if ("1".equals(input)) work();
             if (".".equals(input)) break;
@@ -40,22 +38,24 @@ public class Main {
         boolean exit = false;
         String command;
         while (!exit) {
-            command = keyboard.next();
+            command = keyboard.nextLine();
 
             if (command.startsWith("положить ")) {
-                int enteredValue;
                 try {
-                    enteredValue = Integer.parseInt(
-                            command.substring(command.indexOf(" ") + 1));
-                    стог.положить(enteredValue);
-                } catch (NumberFormatException t) {
+                    стог.положить(Integer.parseInt(
+                            command.substring(command.indexOf(" ") + 1)));
+                } catch (NumberFormatException adversity) {
                     System.out.println("не удалось распознать число");
                 }
                 continue;
             }
 
             switch (command) {
-                case "взять" -> System.out.println("взято с колоды: " + стог.взять());
+                case "взять" -> {
+                    var taken = стог.взять();
+                    System.out.println(taken == null ? "колода пуста" :
+                            "взято с колоды: " + taken);
+                }
                 case "перевернуть" -> стог = стог.перевернуть();
                 case "показать" -> стог.напечатать();
                 case "опустошить" -> стог = new Колода<>();
@@ -64,7 +64,7 @@ public class Main {
 
             }
         }
-        System.out.println("Выход из интерактивнго режима.");
+        System.out.println("Выход из интерактивного режима.");
     }
 
     private static void demo() {
